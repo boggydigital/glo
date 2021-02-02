@@ -1,4 +1,4 @@
-package main
+package internal
 
 const (
 	// ImperialPoundToSIGrams is a ratio between imperial pound and SI gram

@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "cmd": {
+    "convert_": ["grams_!..."]
+  },
+  "help": {
+    "glo": "grams (g) to pounds (lb) and ounces (oz) converter",
+    "convert": "convert value(s) in grams to pounds and ounces",
+    "convert:grams": "value(s) in grams"
+  }
+}

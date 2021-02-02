@@ -1,30 +1,25 @@
 package main
 
 import (
-	"fmt"
+	"github.com/boggydigital/clo"
+	"github.com/boggydigital/glo/cmd"
+	"log"
 	"os"
-	"strconv"
 )
 
 func main() {
-	usage := "glo: grams (g) to pounds (lb) and ounces (oz) converter\n" +
-		"usage: glo [grams]"
 
-	if len(os.Args) < 2 {
-		fmt.Println(usage)
-	} else {
-		grams, err := strconv.ParseFloat(os.Args[1], 64)
-		if err != nil {
-			fmt.Printf("\"%s\" is not a valid value in grams\n", os.Args[1])
-			os.Exit(1)
-		}
+	defs, err := clo.LoadDefinitions("clo.json")
+	if err != nil {
+		log.Fatal("error loading definitions: ", err.Error())
+	}
 
-		pounds, ounces := Convert(grams)
+	req, err := clo.Parse(os.Args[1:], defs)
+	if err != nil {
+		log.Fatal("error parsing command-line objectives: ", err.Error())
+	}
 
-		fmt.Printf("%vg is about %vlb", grams, pounds)
-		if ounces > 0.01 {
-			fmt.Printf(" %.2foz", ounces)
-		}
-		fmt.Println()
+	if err := cmd.Route(req, defs); err != nil {
+		log.Fatal("error routing request to handler: ", err.Error())
 	}
 }
